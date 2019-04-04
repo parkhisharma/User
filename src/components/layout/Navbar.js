@@ -7,18 +7,13 @@ class Navbar extends Component{
   state={
     token:localStorage.getItem('token'),
   }
-  handleLogout=(value)=>{
-    console.log('here');
+  handleLogout=()=>{
     localStorage.removeItem('token')
-    setTimeout(() => {
-      // this.props.history.push('/');
-    }, 10);
     this.setState({
-      token:value,
+      token:'',
     })
   }
   render(){
-    console.log(this.state);
     return (
       <nav className="nav-wrapper grey darken-3">
         <div className="container">

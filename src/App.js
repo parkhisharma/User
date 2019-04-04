@@ -14,6 +14,7 @@ class App extends Component {
         <div className="App">
           <Navbar></Navbar>
           <Switch>
+            {/* In ideal case the userdetails should be protective route but due to time constraints skipping that */}
             <Route exact path='/' component={Dashboard}></Route>
             <Route path='/userdetails' component={UserDetails}></Route>
             <Route path='/signin' component={SignIn}></Route>

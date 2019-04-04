@@ -16,7 +16,6 @@ class SignIn extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     let formData = this.state;
-    console.log("DSFASD",JSON.stringify(formData));
     try{
     fetch('https://api.prontoitlabs.com/api/v1/user/login', {
       method: 'POST',

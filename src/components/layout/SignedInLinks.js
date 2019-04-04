@@ -1,10 +1,11 @@
 import React, {Component} from "react";
 import { NavLink } from "react-router-dom";
 
+// This Component loads when user is Logged In.
 
 class SignedInLinks extends Component{
   handleClick=()=>{
-    this.props.logout('')
+    this.props.logout()
   }
   render(){
     return (
@@ -15,10 +16,6 @@ class SignedInLinks extends Component{
         <li>
           <NavLink to='/userdetails' >User Details</NavLink>
         </li>
-        <li>
-          <NavLink to='/' className="btn btn-floating pink lighten-1">NN</NavLink>
-        </li>
-      
       </ul>
     )
   }

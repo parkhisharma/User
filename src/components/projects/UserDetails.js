@@ -11,28 +11,23 @@ class UserDetails extends Component {
   }
   getPageData=(pageNumber)=>{
     let token = localStorage.getItem('token');
-    console.log('called',token);
     try {
       fetch('https://api.prontoitlabs.com/api/v1/user?page='+pageNumber+'&size=25', {
         method: 'GET',
         headers: {
           'X-AUTH-TOKEN': token,
-          // 'Content-Type': 'application/json'
         },
-        // body: JSON.stringify(formData)
       }).then(response =>
         response.json().then(data => ({
           data: data,
           status: response.status
         })
         ).then(res => {
-          console.log('res', res);
-          if (res.status == 200) {
+          if (res.status === 200) {
             this.setState({
               token: res.data.data,
               status: res.status
             })
-            console.log('res.data.data.user', res.data);
             this.setState({
               content: res.data.data.content,
               totalPages: res.data.data.totalPages,
@@ -54,30 +49,22 @@ class UserDetails extends Component {
     this.getPageData(this.state.currentPage);
   }
   handleClick= (event)=> {
-    console.log('event.target.id', event.target);
     this.setState({
       currentPage: Number(event.target.id)
     },()=>{
-
       this.getPageData(this.state.currentPage);
     });
   }
   renderPageinationBar = () => {
     let pages = this.state.totalPages;
     const pageButtons = [];
-
+    // Pagination can be improved with styling, but focusing on functionality on priority.
     for (let i = 0; i < pages; i++) {
       pageButtons.push(<li className="waves-effect"  onClick={this.handleClick}><a href="#!" id = {i}>{i+1}</a></li>);
     }
-
     return pageButtons;
-
-    // <div>
-
-    // </div>
   }
   renderUserData = () => {
-    console.log();
     let users = this.state.content;
     const UserList = users.length ? (
       users.map(user => {
@@ -88,8 +75,7 @@ class UserDetails extends Component {
             <td>{user.password}</td>
           </tr>
         )
-      }
-      )
+      })
     ) : (
         <div className="">
             <span className="card-title"> Nothing here</span>
@@ -98,7 +84,6 @@ class UserDetails extends Component {
       )
     return UserList;
   }
-  // const id = props.match.params.id;
   render() {
     return (
       <div>

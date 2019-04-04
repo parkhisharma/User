@@ -18,7 +18,6 @@ class SignUp extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     let formData = this.state;
-    console.log("DSFASD", JSON.stringify(formData));
     try {
       fetch('https://api.prontoitlabs.com/api/v1/user', {
         method: 'POST',
@@ -33,7 +32,7 @@ class SignUp extends Component {
           status: response.status
         })
         ).then(res => {
-          if (res.status == 200) {
+          if (res.status === 200) {
             this.setState({
               token: res.data.data,
               status: res.status
@@ -45,7 +44,6 @@ class SignUp extends Component {
 
             localStorage.setItem('token', res.data.data.token);
             localStorage.setItem('user', res.data.data.user);
-            console.log('res.data.data.user',localStorage.getItem('token'));
             setTimeout(() => {
               this.props.history.push('/signin');
             }, 3000);
