@@ -8,7 +8,7 @@ class Dashboard extends Component {
         <div className="card z-depth-1 blue-grey darken-1">
           <div className="card-content white-text">
             <span className="card-title">Welcome</span>
-            <p>This is a very basic login signup appliction.</p>
+            <p>User Authentication with Routing, Login, Sign Up, Pagination and Api Integration using React JS</p>
           </div>
         </div>
       </div>

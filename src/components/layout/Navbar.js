@@ -22,7 +22,7 @@ class Navbar extends Component{
     return (
       <nav className="nav-wrapper grey darken-3">
         <div className="container">
-          <Link to='/' className="brand-logo">User</Link>
+          <Link to='/' className="brand-logo">User Authentication</Link>
           {
             this.state.token && this.state.token.length ? (
               <SignedInLinks logout={this.handleLogout}></SignedInLinks>
