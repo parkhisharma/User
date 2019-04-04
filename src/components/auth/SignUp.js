@@ -8,7 +8,6 @@ class SignUp extends Component {
     userName: '',
     password: '',
     gender: '',
-    token: ''
   }
   handleChange = (e) => {
     this.setState({
@@ -34,19 +33,10 @@ class SignUp extends Component {
         ).then(res => {
           if (res.status === 200) {
             this.setState({
-              token: res.data.data,
               status: res.status
             })
-            toast.success("Account Created Successfully, Redirectiong to Login!", {
-              position: toast.POSITION.TOP_CENTER,
-              className: 'foo-bar'
-            })
-
-            localStorage.setItem('token', res.data.data.token);
-            localStorage.setItem('user', res.data.data.user);
-            setTimeout(() => {
-              this.props.history.push('/signin');
-            }, 3000);
+            this.props.onLogin(res.data.data.token, res.data.data.user);
+            this.props.history.push('/userdetails');
           } else {
             toast.error("Something Went Wrong.", {
               position: toast.POSITION.TOP_CENTER,

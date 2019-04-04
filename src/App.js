@@ -8,17 +8,38 @@ import SignIn from './components/auth/SignIn';
 import SignUp from './components/auth/SignUp';
 
 class App extends Component {
+  state = {
+    token: localStorage.getItem('token'),
+    user: localStorage.getItem('user')
+  }
+
+  handleLogin = (token=null, user=null) => {
+    localStorage.setItem('token', token)
+    localStorage.setItem('user', user)
+    this.setState({
+      token,
+      user
+    })
+  }
+
+  handleLogout = () => {
+    localStorage.removeItem('token')
+    this.setState({
+      token: null
+    })
+  }
+
   render() {
     return (
       <BrowserRouter>
         <div className="App">
-          <Navbar></Navbar>
+          <Navbar token={this.state.token} onLogout={this.handleLogout}></Navbar>
           <Switch>
             {/* In ideal case the userdetails should be protective route but due to time constraints skipping that */}
             <Route exact path='/' component={Dashboard}></Route>
             <Route path='/userdetails' component={UserDetails}></Route>
-            <Route path='/signin' component={SignIn}></Route>
-            <Route path='/signup' component={SignUp}></Route>
+            <Route path='/signin' render={(routeProps) => (<SignIn {...routeProps} onLogin={this.handleLogin} />)} />
+            <Route path='/signup' render={(routeProps) => <SignUp {...routeProps} onLogin={this.handleLogin} />} />
           </Switch>
         </div>
       </BrowserRouter> 

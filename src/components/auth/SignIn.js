@@ -2,49 +2,49 @@ import React, { Component } from 'react'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 class SignIn extends Component {
-  componentDidMount(){    
-  }
   state = {
-    userName:'',
-    password:''
+    userName: '',
+    password: ''
   }
-  handleChange = (e)=>{
-   this.setState({
-     [e.target.id]: e.target.value
-   })
+  componentDidMount() {
+  }
+  handleChange = (e) => {
+    this.setState({
+      [e.target.id]: e.target.value
+    })
   }
   handleSubmit = (e) => {
     e.preventDefault();
     let formData = this.state;
-    try{
-    fetch('https://api.prontoitlabs.com/api/v1/user/login', {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(formData)
-    }).then(response =>
-      response.json().then(data => ({
-        data: data,
-        status: response.status
-      })
-      ).then(res => {
-        if (res.status === 200 ) {
-          localStorage.setItem('token',res.data.data.token);
-          setTimeout(() => {
-            this.props.history.push('/userdetails');
-          }, 10);
-        } else {
-          toast.error("Something Went Wrong.", {
-            position: toast.POSITION.TOP_CENTER,
-            className: 'foo-bar'
-          })
-        }
-      }))
-  } catch (error) {
-    console.error('Login Error ',error);
-  }
+    try {
+      fetch('https://api.prontoitlabs.com/api/v1/user/login', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+      }).then(response =>
+        response.json().then(data => ({
+          data: data,
+          status: response.status
+        })
+        ).then(res => {
+          if (res.status === 200) {
+            this.props.onLogin(res.data.data.token);
+            setTimeout(() => {
+              this.props.history.push('/userdetails');
+            }, 10);
+          } else {
+            toast.error("Something Went Wrong.", {
+              position: toast.POSITION.TOP_CENTER,
+              className: 'foo-bar'
+            })
+          }
+        }))
+    } catch (error) {
+      console.error('Login Error ', error);
+    }
   }
   render() {
     return (
